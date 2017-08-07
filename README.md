@@ -6,18 +6,54 @@
 Query tag extension for Yii 2
 ===========================
 
+Before: 
+```sql
+SELECT * FROM page WHERE 1=1
+```
+
+After:
+```sql
+SELECT \/* EExampleTest:11 UnitHelper:28 Step:218 *\/ * FROM page WHERE 1=1
+```
 
 Installation
 ------------
 
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist pastuhov/yii2-query-tag
+```
+
+or add
+
+```
+"require-dev": {
+    "pastuhov/yii2-query-tag": "~1.0.0"
+    ...
+```
+
+to the require section of your `composer.json` file.
 
 Usage
 -----
 
+Change your app config:
+```php
+    'components' => [
+        'db' => [
+            'class' => \yii\db\Connection::class,
+            'commandClass' => \pastuhov\querytag\Command::class, // <-- add this line
+```
 
 Testing
 -------
 
+```bash
+./vendor/bin/codecept run unit,acceptance
+```
 
 Security
 --------
