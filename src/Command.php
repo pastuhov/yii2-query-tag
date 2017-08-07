@@ -59,7 +59,7 @@ class Command extends \yii\db\Command
             }
         }
 
-        return ' /* '. implode(' ', $traces) . ' */';
+        return ' /* ' . implode(' ', $traces) . ' */';
     }
 
     /**
