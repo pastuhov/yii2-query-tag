@@ -1,0 +1,15 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit (internal) tests.
+
+class_name: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - Db
+        - pastuhov\logstock\UnitHelper
+#        - Yii2
+#    config:
+#        Yii2:
+#            configFile: 'tests/app/config/console.php'
+#            class: '\yii\console\Application'

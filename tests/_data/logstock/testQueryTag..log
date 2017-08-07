@@ -1,0 +1,4 @@
+Entry: console
+
+SELECT /* ExampleTest:11 UnitHelper:28 Step:218 */ * FROM page WHERE 1=1
+
