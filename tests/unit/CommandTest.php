@@ -3,7 +3,7 @@
 namespace pastuhov\querytag\tests\unit;
 
 
-class ExampleTest extends UnitTestCase
+class CommandTest extends UnitTestCase
 {
     public function testQueryTag()
     {

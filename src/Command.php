@@ -21,12 +21,6 @@ class Command extends \yii\db\Command
      * @var int
      */
     public $backTraceLevel = 12;
-    /**
-     * Enable tagging.
-     *
-     * @var bool
-     */
-    public $queryTagEnabled = true;
 
     /**
      * @inheritdoc
