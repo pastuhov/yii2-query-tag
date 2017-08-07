@@ -5,6 +5,7 @@
 
 Query tag extension for Yii 2
 ===========================
+Adds trace lines to every DB query.
 
 Before: 
 ```sql
@@ -13,7 +14,7 @@ SELECT * FROM page WHERE 1=1
 
 After:
 ```sql
-SELECT \/* EExampleTest:11 UnitHelper:28 Step:218 *\/ * FROM page WHERE 1=1
+SELECT /* EExampleTest:11 UnitHelper:28 Step:218 */ * FROM page WHERE 1=1
 ```
 
 Installation
