@@ -1,6 +1,6 @@
 {
     "name": "pastuhov/yii2-query-tag",
-    "description": "",
+    "description": "Query tag extension for Yii 2",
     "keywords": ["yii2", "testing", "debug", "debugger"],
     "type": "yii2-extension",
     "license": "MIT",
