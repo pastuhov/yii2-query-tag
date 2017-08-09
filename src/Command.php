@@ -9,12 +9,32 @@ namespace pastuhov\querytag;
  */
 class Command extends \yii\db\Command
 {
+    /**
+     * Trace tag.
+     */
     const TAG_TYPE_TRACE = 'TraceTag';
+    /**
+     * Custom tag.
+     */
     const TAG_TYPE_CUSTOM = 'CustomTag';
+    /**
+     * Script entry point tag.
+     */
     const TAG_TYPE_ENTRY_POINT = 'EnryPointTag';
+    /**
+     * Enabled tags.
+     *
+     * @var array
+     */
     public $enabledTags = [
         self::TAG_TYPE_TRACE,
     ];
+    /**
+     * Custom tag value.
+     *
+     * @var string
+     */
+    public $customTag = '';
     /**
      * Maximum trace entries in query.
      *
@@ -22,7 +42,7 @@ class Command extends \yii\db\Command
      */
     public $traceLevel = 4;
     /**
-     * debug_backtrace() level param.
+     * Maximum debug_backtrace() level param.
      *
      * @var int
      */
@@ -41,7 +61,15 @@ class Command extends \yii\db\Command
     }
 
     /**
-     * Tag compilation.
+     * Generates custom tag.
+     */
+    protected function getCustomTag()
+    {
+        return $this->customTag;
+    }
+
+    /**
+     * Generates trace tag.
      *
      * @return string
      */
@@ -65,7 +93,7 @@ class Command extends \yii\db\Command
     }
 
     /**
-     * Inserts tag into query.
+     * Inserts tags into query string.
      *
      * @param string $sql Query.
      * @return string
