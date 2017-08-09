@@ -32,7 +32,7 @@ or add
 
 ```
 "require-dev": {
-    "pastuhov/yii2-query-tag": "~1.0.0"
+    "pastuhov/yii2-query-tag": "~1.1.0"
     ...
 ```
 
@@ -53,7 +53,7 @@ Testing
 -------
 
 ```bash
-./vendor/bin/codecept run unit,acceptance
+./vendor/bin/codecept run
 ```
 
 Security
