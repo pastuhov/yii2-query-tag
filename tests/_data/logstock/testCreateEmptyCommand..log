@@ -1,0 +1,4 @@
+Entry: console
+
+DELETE /* CommandTest:19 UnitHelper:28 Step:218 Actor:99 */ FROM `page` WHERE `id`=123
+

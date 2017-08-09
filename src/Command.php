@@ -27,7 +27,9 @@ class Command extends \yii\db\Command
      */
     public function setSql($sql)
     {
-        $sql = $this->insertTag($sql);
+        if ($sql !== null) {
+            $sql = $this->insertTag($sql);
+        }
 
         return parent::setSql($sql);
     }
