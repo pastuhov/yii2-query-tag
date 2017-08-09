@@ -49,6 +49,24 @@ Change your app config:
             'commandClass' => \pastuhov\querytag\Command::class, // <-- add this line
 ```
 
+Advanced usage
+-----
+
+Extend query tag command class:
+```php
+namespace app\components;
+
+class Command extends \pastuhov\querytag\Command
+{
+    public $customTag = 'master';
+    public $enabledTags = [
+        self::TAG_TYPE_CUSTOM,
+        self::TAG_TYPE_TRACE,
+    ];
+}
+```
+
+
 Testing
 -------
 
