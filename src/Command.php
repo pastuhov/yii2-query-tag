@@ -9,6 +9,12 @@ namespace pastuhov\querytag;
  */
 class Command extends \yii\db\Command
 {
+    const TAG_TYPE_TRACE = 'TraceTag';
+    const TAG_TYPE_CUSTOM = 'CustomTag';
+    const TAG_TYPE_ENTRY_POINT = 'EnryPointTag';
+    public $enabledTags = [
+        self::TAG_TYPE_TRACE,
+    ];
     /**
      * Maximum trace entries in query.
      *
@@ -28,7 +34,7 @@ class Command extends \yii\db\Command
     public function setSql($sql)
     {
         if ($sql !== null) {
-            $sql = $this->insertTag($sql);
+            $sql = $this->insertTags($sql);
         }
 
         return parent::setSql($sql);
@@ -39,7 +45,7 @@ class Command extends \yii\db\Command
      *
      * @return string
      */
-    protected function getTag(): string
+    protected function getTraceTag(): string
     {
         $count = 0;
         $traces = [];
@@ -55,7 +61,7 @@ class Command extends \yii\db\Command
             }
         }
 
-        return ' /* ' . implode(' ', $traces) . ' */';
+        return implode(' ', $traces);
     }
 
     /**
@@ -64,14 +70,22 @@ class Command extends \yii\db\Command
      * @param string $sql Query.
      * @return string
      */
-    protected function insertTag(string $sql): string
+    protected function insertTags(string $sql): string
     {
         $position = strpos($sql, ' ');
 
         if ($position !== false) {
-            $tag = $this->getTag();
+            $tags = [];
+            foreach ($this->enabledTags as $tag) {
+                $tags[] = $this->{'get' . $tag}();
+            }
 
-            $sql = substr_replace($sql, $tag, $position, 0);
+            $sql = substr_replace(
+                $sql,
+                ' /* ' . implode(' ', $tags) . ' */',
+                $position,
+                0
+            );
         }
 
         return $sql;
