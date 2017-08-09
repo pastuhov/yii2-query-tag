@@ -10,13 +10,39 @@ namespace pastuhov\querytag;
 class Command extends \yii\db\Command
 {
     /**
+     * Trace tag.
+     */
+    const TAG_TYPE_TRACE = 'TraceTag';
+    /**
+     * Custom tag.
+     */
+    const TAG_TYPE_CUSTOM = 'CustomTag';
+    /**
+     * Script entry point tag.
+     */
+    const TAG_TYPE_ENTRY_POINT = 'EnryPointTag';
+    /**
+     * Enabled tags.
+     *
+     * @var array
+     */
+    public $enabledTags = [
+        self::TAG_TYPE_TRACE,
+    ];
+    /**
+     * Custom tag value.
+     *
+     * @var string
+     */
+    public $customTag = '';
+    /**
      * Maximum trace entries in query.
      *
      * @var int
      */
     public $traceLevel = 4;
     /**
-     * debug_backtrace() level param.
+     * Maximum debug_backtrace() level param.
      *
      * @var int
      */
@@ -28,18 +54,26 @@ class Command extends \yii\db\Command
     public function setSql($sql)
     {
         if ($sql !== null) {
-            $sql = $this->insertTag($sql);
+            $sql = $this->insertTags($sql);
         }
 
         return parent::setSql($sql);
     }
 
     /**
-     * Tag compilation.
+     * Generates custom tag.
+     */
+    protected function getCustomTag()
+    {
+        return $this->customTag;
+    }
+
+    /**
+     * Generates trace tag.
      *
      * @return string
      */
-    protected function getTag(): string
+    protected function getTraceTag(): string
     {
         $count = 0;
         $traces = [];
@@ -55,23 +89,31 @@ class Command extends \yii\db\Command
             }
         }
 
-        return ' /* ' . implode(' ', $traces) . ' */';
+        return implode(' ', $traces);
     }
 
     /**
-     * Inserts tag into query.
+     * Inserts tags into query string.
      *
      * @param string $sql Query.
      * @return string
      */
-    protected function insertTag(string $sql): string
+    protected function insertTags(string $sql): string
     {
         $position = strpos($sql, ' ');
 
         if ($position !== false) {
-            $tag = $this->getTag();
+            $tags = [];
+            foreach ($this->enabledTags as $tag) {
+                $tags[] = $this->{'get' . $tag}();
+            }
 
-            $sql = substr_replace($sql, $tag, $position, 0);
+            $sql = substr_replace(
+                $sql,
+                ' /* ' . implode(' ', $tags) . ' */',
+                $position,
+                0
+            );
         }
 
         return $sql;

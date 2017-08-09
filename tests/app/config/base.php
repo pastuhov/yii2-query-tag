@@ -12,7 +12,7 @@ $config = [
             'class' => \yii\db\Connection::class,
             'dsn' => 'sqlite:' . dirname(dirname(__DIR__)) . '/_output/sqlite_test.db',
             'charset' => 'utf8',
-            'commandClass' => \pastuhov\querytag\Command::class,
+            'commandClass' => \pastuhov\querytag\tests\app\components\Command::class,
         ],
         'log' => [
             'flushInterval' => 1,

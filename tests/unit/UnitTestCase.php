@@ -2,7 +2,6 @@
 
 namespace pastuhov\querytag\tests\unit;
 
-use Yii;
 use yii\codeception\TestCase;
 use yii\console\Application;
 
@@ -10,8 +9,14 @@ class UnitTestCase extends TestCase
 {
     protected function _before()
     {
-        $config = require 'tests/app/config/console.php';
+        $this->mockApplication($this->getAppConfig());
+    }
+
+    protected function getAppConfig()
+    {
+        $config = require __DIR__ . '/../app/config/console.php';
         $config['class'] = Application::class;
-        $this->mockApplication($config);
+
+        return $config;
     }
 }
