@@ -13,6 +13,16 @@ $config = [
             'dsn' => 'sqlite:' . dirname(dirname(__DIR__)) . '/_output/sqlite_test.db',
             'charset' => 'utf8',
             'commandClass' => \pastuhov\querytag\tests\app\components\Command::class,
+            'enableSlaves' => true,
+            'slaves' => [
+                'one' => [
+                    'dsn' => 'sqlite:' . dirname(dirname(__DIR__)) . '/_output/sqlite_test_slave.db',
+                ]
+            ],
+            'slaveConfig' => [
+                'class' => \yii\db\Connection::class,
+                'commandClass' => \pastuhov\querytag\tests\app\components\SlaveCommand::class,
+            ],
         ],
         'log' => [
             'flushInterval' => 1,

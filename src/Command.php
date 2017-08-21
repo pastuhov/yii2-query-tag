@@ -20,7 +20,11 @@ class Command extends \yii\db\Command
     /**
      * Script entry point tag.
      */
-    const TAG_TYPE_ENTRY_POINT = 'EnryPointTag';
+    const TAG_TYPE_ENTRY_POINT = 'EntryPointTag';
+    /**
+     *
+     */
+    const TAG_TYPE_FOR_READ = 'ForReadTag';
     /**
      * Enabled tags.
      *
@@ -47,6 +51,8 @@ class Command extends \yii\db\Command
      * @var int
      */
     public $backTraceLevel = 12;
+
+    protected $forRead;
 
     /**
      * @inheritdoc
@@ -92,6 +98,18 @@ class Command extends \yii\db\Command
         return implode(' ', $traces);
     }
 
+    protected function getForReadTag()
+    {
+        $tag = 'S';
+
+        if ($this->forRead === false) {
+            $tag = 'M';
+        }
+
+        return $tag;
+    }
+
+
     /**
      * Inserts tags into query string.
      *
@@ -131,4 +149,24 @@ class Command extends \yii\db\Command
 
         return $line;
     }
+
+    public function prepare1($forRead = null)
+    {
+        $sql = $this->getSql();
+
+        if ($forRead || $forRead === null && $this->db->getSchema()->isReadQuery($sql)) {
+            $this->forRead = true;
+        } else {
+            $this->forRead = false;
+        }
+
+        return parent::prepare($forRead);
+    }
+
+    public function bindPendingParams()
+    {
+        codecept_debug($this->pdoStatement->getAttribute(\PDO::ATTR_);
+        parent::bindPendingParams();
+    }
+
 }
