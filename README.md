@@ -5,7 +5,7 @@
 
 Query tag extension for Yii 2
 ===========================
-Adds trace lines to every DB query.
+Do you use `pgbabger` or `pg_stat_statements` ? And sometimes it can be difficult to understand which code generates the request? `yii2-query-tag` will help!
 
 Before: 
 ```sql
@@ -14,8 +14,14 @@ SELECT * FROM page WHERE 1=1
 
 After:
 ```sql
-SELECT /* EExampleTest:11 UnitHelper:28 Step:218 */ * FROM page WHERE 1=1
+SELECT /* ExampleTest:11 UnitHelper:28 Step:218 */ * FROM page WHERE 1=1
 ```
+
+Features
+--------
+
+- Production ready/safe/tested
+- Saves team time
 
 Installation
 ------------
